@@ -1,9 +1,13 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
+import Icon from "./Icon";
+import { toggleDemoMode, useDemoMode } from "../demo/demoStore";
 
 function Sidebar() {
   const location = useLocation();
   const navigate = useNavigate();
+  const isDemo = useDemoMode();
+  const isAppointments = location.pathname === "/appointments" || location.pathname === "/";
 
 
 const handlePatientsPage = () => {
@@ -42,19 +46,41 @@ const handlePatientsPage = () => {
         <p className="sidebar-section-label">القائمة الرئيسية</p>
 
         <ul>
-          <li className={location.pathname === "/appointments" ? "active" : ""}>
-            <Link to="/appointments">📅 المواعيد</Link>
+          <li className={isAppointments ? "active" : ""}>
+            <Link to="/appointments">
+              <Icon name="calendar" size={16} />
+              المواعيد
+            </Link>
           </li>
           <li className={location.pathname === "/reception" ? "active" : ""}>
-            <Link to="/reception">📋 الاستقبال</Link>
+            <Link to="/reception">
+              <Icon name="clipboard" size={16} />
+              الاستقبال
+            </Link>
           </li>
-          <li className={location.pathname === "/login" ? "active" : ""}>
-            <Link to="/login">🔐 تسجيل الدخول</Link>
+          <li className={`nav-staff ${location.pathname === "/login" ? "active" : ""}`}>
+            <Link to="/login">
+              <Icon name="lock" size={15} />
+              تسجيل الدخول
+            </Link>
           </li>
           <li className={location.pathname === "/patients" ? "active" : ""}>
-            <Link to="/patients" onClick={handlePatientsPage}>👥 المرضى</Link>
+            <Link to="/patients" onClick={handlePatientsPage}>
+              <Icon name="users" size={16} />
+              المرضى
+            </Link>
           </li>
         </ul>
+
+        <button
+          type="button"
+          className={`demo-toggle sidebar-demo-toggle ${isDemo ? "is-active" : ""}`}
+          onClick={toggleDemoMode}
+          aria-pressed={isDemo}
+        >
+          <Icon name={isDemo ? "close" : "sparkle"} size={15} />
+          {isDemo ? "إنهاء العرض التجريبي" : "عرض تجريبي"}
+        </button>
       </div>
 
       <div className="sidebar-footer">
@@ -64,7 +90,9 @@ const handlePatientsPage = () => {
             <span>استشاري باطنة</span>
             <span>الأحد - الأربعاء | 10:00 ص - 4:00 م</span>
           </div>
-          <div className="sidebar-footer-avatar">👨‍⚕️</div>
+          <div className="sidebar-footer-avatar">
+            <Icon name="stethoscope" size={18} />
+          </div>
         </div>
       </div>
 

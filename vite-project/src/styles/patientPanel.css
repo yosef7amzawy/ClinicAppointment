@@ -1,11 +1,11 @@
 /* ===========================
-   patientPanel.css
+   Patient panel — green / ivory
    =========================== */
 
 .panel-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.35);
+  background: rgba(21, 62, 54, 0.4);
   z-index: 900;
   backdrop-filter: blur(2px);
 }
@@ -14,10 +14,12 @@
   position: fixed;
   top: 0;
   right: 0;
-  width: 320px;
+  width: 370px;
+  max-width: 100vw;
   height: 100vh;
-  background: #ffffff;
-  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12);
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  box-shadow: -10px 0 45px rgba(21, 62, 54, 0.14);
   display: flex;
   flex-direction: column;
   direction: rtl;
@@ -33,7 +35,7 @@
 
 /* ---------- Header ---------- */
 .panel-header {
-  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+  background: var(--primary);
   padding: 28px 20px 24px;
   display: flex;
   flex-direction: column;
@@ -47,44 +49,46 @@
   position: absolute;
   top: 14px;
   left: 14px;
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
-  color: #fff;
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
-  font-size: 14px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #F8FBF5;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.15s;
+  transition: background 0.15s ease;
 }
 
-.panel-close:hover { background: rgba(255,255,255,0.35); }
+.panel-close:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
 
 .panel-avatar {
   width: 64px;
   height: 64px;
-  background: rgba(255, 255, 255, 0.18);
-  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #F8FBF5;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 30px;
 }
 
 .panel-name {
   font-size: 18px;
   font-weight: 700;
-  color: #ffffff;
+  color: #F8FBF5;
   margin: 0;
   text-align: center;
 }
 
 .panel-phone {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.85);
+  font-size: 12.5px;
+  color: rgba(248, 251, 245, 0.78);
   margin: 0;
   display: flex;
   align-items: center;
@@ -92,11 +96,14 @@
   direction: ltr;
 }
 
-.phone-icon { font-size: 13px; }
+.phone-icon {
+  display: flex;
+  align-items: center;
+}
 
 .panel-badges {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   margin-top: 4px;
 }
 
@@ -104,20 +111,21 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 600;
   padding: 4px 12px;
-  border-radius: 20px;
+  border-radius: 999px;
 }
 
 .badge--active {
-  background: #22c55e;
-  color: #fff;
+  background: #F8FBF5;
+  color: var(--primary-dark);
 }
 
 .badge--visits {
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #F8FBF5;
 }
 
 /* ---------- Body ---------- */
@@ -128,96 +136,132 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  background: var(--ivory);
 }
-
-.panel-body::-webkit-scrollbar { width: 4px; }
-.panel-body::-webkit-scrollbar-track { background: #f1f5f9; }
-.panel-body::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
 
 /* ---------- Section Title ---------- */
 .panel-section-title {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   font-size: 14px;
   font-weight: 700;
-  color: #1e293b;
+  color: var(--text);
   margin-bottom: 4px;
 }
 
+.panel-section-title svg {
+  color: var(--primary);
+}
+
 .records-count {
-  margin-right: auto;
-  font-size: 12px;
-  color: #64748b;
+  margin-inline-start: auto;
+  font-size: 11.5px;
+  color: var(--muted);
   font-weight: 400;
 }
 
 /* ---------- Visit Card ---------- */
 .visit-card {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 13px;
   padding: 14px 16px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  gap: 12px;
+  box-shadow: 0 1px 2px rgba(21, 62, 54, 0.03);
 }
 
 .visit-card-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
 }
 
 .visit-day {
   font-size: 13px;
   font-weight: 700;
-  color: #1e293b;
+  color: var(--text);
 }
 
 .visit-date {
-  font-size: 12px;
-  color: #6366f1;
+  font-size: 11.5px;
+  color: var(--primary);
   font-weight: 600;
 }
 
 /* ---------- Visit Field ---------- */
 .visit-field {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 3px 6px;
+  align-items: start;
 }
 
 .field-label {
-  font-size: 11px;
-  color: #94a3b8;
+  grid-column: 1 / -1;
+  font-size: 10.5px;
+  color: var(--muted);
   font-weight: 500;
 }
 
 .field-icon {
-  display: inline;
-  margin-left: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.field-icon--diagnosis {
+  color: var(--primary);
+}
+
+.field-icon--medicine {
+  color: var(--gold);
+}
+
+.field-icon--notes {
+  color: var(--muted);
 }
 
 .field-value {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
-  color: #1e293b;
+  color: var(--text);
+  line-height: 1.7;
+  overflow-wrap: anywhere;
 }
 
-.field-value--diagnosis { color: #6366f1; }
-.field-value--medicine  { color: #e11d48; }
+.field-value--diagnosis {
+  color: var(--primary-dark);
+}
+
+.field-value--medicine {
+  color: var(--text);
+}
 
 /* ---------- Empty ---------- */
 .empty-state {
   text-align: center;
-  color: #94a3b8;
-  font-size: 14px;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px dashed var(--border-strong);
+  border-radius: 12px;
+  font-size: 13px;
   padding: 32px 0;
 }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 480px) {
-  .panel { width: 100vw; }
+  .panel {
+    width: 100vw;
+  }
+
+  .panel-header {
+    padding-top: 24px;
+  }
 }

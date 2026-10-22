@@ -1,8 +1,12 @@
 import { useState } from "react";
+import Icon from "./Icon";
 import "../styles/bookingModal.css";
 import { API_BASE_URL } from "../config";
+import { useDemoMode } from "../demo/demoStore";
 
-function BookingModal({ slot, onClose }) {
+function BookingModal({ slot, demo = false, onClose }) {
+  const isDemo = useDemoMode();
+  const demoLocked = isDemo || demo;
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [paymentType, setPaymentType] = useState("unpaid");
@@ -21,6 +25,8 @@ function BookingModal({ slot, onClose }) {
   };
 
   const handleBooking = async () => {
+    if (demoLocked) return;
+
     const [datePart, timePart] = slot.split(" - ");
     try {
       const patientRes = await fetch(`${API_BASE_URL}/patients`, {
@@ -45,10 +51,10 @@ function BookingModal({ slot, onClose }) {
       const savedAppointments = JSON.parse(localStorage.getItem("appointments")) || [];
       savedAppointments.push({ date: datePart, time: timePart, patientName: name, phone, status: paymentStatus });
       localStorage.setItem("appointments", JSON.stringify(savedAppointments));
-      showToast("✅ تم الحجز بنجاح", "success");
+      showToast("تم الحجز بنجاح", "success");
     } catch (error) {
       console.log(error);
-      showToast("❌ حدث خطأ أثناء الحجز", "error");
+      showToast("حدث خطأ أثناء الحجز", "error");
     }
   };
 
@@ -56,7 +62,8 @@ function BookingModal({ slot, onClose }) {
     <>
       {/* Toast */}
       {toast.show && (
-        <div className="bm-toast" data-type={toast.type}>
+        <div className="bm-toast" data-type={toast.type} role="status">
+          <Icon name={toast.type === "success" ? "check" : "alert"} size={18} />
           {toast.text}
         </div>
       )}
@@ -66,7 +73,9 @@ function BookingModal({ slot, onClose }) {
 
           {/* Header */}
           <div className="bm-header">
-            <button className="bm-close" onClick={onClose}>✕</button>
+            <button className="bm-close" onClick={onClose} aria-label="إغلاق">
+              <Icon name="close" size={16} />
+            </button>
             <div className="bm-header-text">
               <h3>إضافة حجز جديد</h3>
               <p>أدخل بيانات المريض لإتمام الحجز</p>
@@ -79,19 +88,20 @@ function BookingModal({ slot, onClose }) {
             {/* Slot + ID */}
             <div className="bm-row">
               <div className="bm-field">
-                <label>رقم الحجز</label>
-                <input type="text" value={bookingId} readOnly className="bm-input bm-readonly" />
+                <label htmlFor="booking-id">رقم الحجز</label>
+                <input id="booking-id" type="text" value={bookingId} readOnly dir="ltr" className="bm-input bm-readonly" />
               </div>
               <div className="bm-field">
-                <label>الموعد</label>
-                <input type="text" value={slot} readOnly className="bm-input bm-readonly bm-slot" />
+                <label htmlFor="booking-slot">الموعد</label>
+                <input id="booking-slot" type="text" value={slot} readOnly dir="ltr" className="bm-input bm-readonly bm-slot" />
               </div>
             </div>
 
             {/* Name */}
             <div className="bm-field">
-              <label>الاسم الكامل <span className="bm-required">*</span></label>
+              <label htmlFor="booking-name">الاسم الكامل <span className="bm-required">*</span></label>
               <input
+                id="booking-name"
                 type="text"
                 placeholder="اسم المريض"
                 value={name}
@@ -102,13 +112,15 @@ function BookingModal({ slot, onClose }) {
 
             {/* Phone */}
             <div className="bm-field">
-              <label>رقم الهاتف <span className="bm-required">*</span></label>
+              <label htmlFor="booking-phone">رقم الهاتف <span className="bm-required">*</span></label>
               <input
+                id="booking-phone"
                 type="text"
                 placeholder="01xxxxxxxxx"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="bm-input"
+                dir="ltr"
+                className="bm-input bm-input--ltr"
               />
             </div>
 
@@ -126,15 +138,15 @@ function BookingModal({ slot, onClose }) {
                 </div>
               </div>
               <div className="bm-field">
-                <label>تاريخ الميلاد</label>
-                <input type="date" className="bm-input" />
+                <label htmlFor="booking-dob">تاريخ الميلاد</label>
+                <input id="booking-dob" type="date" className="bm-input" />
               </div>
             </div>
 
             {/* Address */}
             <div className="bm-field">
-              <label>العنوان</label>
-              <input type="text" placeholder="عنوان المريض" className="bm-input" />
+              <label htmlFor="booking-address">العنوان</label>
+              <input id="booking-address" type="text" placeholder="عنوان المريض" className="bm-input" />
             </div>
 
             {/* Payment */}
@@ -165,7 +177,8 @@ function BookingModal({ slot, onClose }) {
             {/* Payment notices */}
             {paymentType === "unpaid" && (
               <div className="bm-notice bm-notice--warn">
-                💰 سيتم الدفع عند الحضور
+                <Icon name="card" size={16} />
+                سيتم الدفع عند الحضور
               </div>
             )}
 
@@ -174,7 +187,9 @@ function BookingModal({ slot, onClose }) {
                 <label>وسيلة الدفع:</label>
                 <div className="bm-payment-options">
                   <label className="bm-payment-opt active">
-                    <input type="radio" checked readOnly /> 📱 فودافون كاش
+                    <input type="radio" checked readOnly />
+                    <Icon name="phone" size={15} />
+                    فودافون كاش
                   </label>
                 </div>
                 <div className="bm-notice bm-notice--success">
@@ -183,11 +198,24 @@ function BookingModal({ slot, onClose }) {
               </div>
             )}
 
+            {demoLocked && (
+              <div className="bm-notice bm-notice--warn">
+                وضع تجريبي: إجراء الحجز معطّل ولن تُرسل أي بيانات إلى قاعدة البيانات.
+              </div>
+            )}
+
           </div>
 
           {/* Actions */}
           <div className="bm-actions">
-            <button className="bm-btn-save" onClick={handleBooking}>حفظ</button>
+            <button
+              className="bm-btn-save"
+              onClick={handleBooking}
+              disabled={demoLocked}
+              title={demoLocked ? "غير متاح في الوضع التجريبي" : undefined}
+            >
+              حفظ
+            </button>
             <button className="bm-btn-cancel" onClick={onClose}>إلغاء</button>
           </div>
 

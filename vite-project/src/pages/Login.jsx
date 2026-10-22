@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Icon from "../components/Icon";
+import DemoBanner from "../components/DemoBanner";
+import { useDemoMode } from "../demo/demoStore";
 import "../styles/login.css";
 import { API_BASE_URL } from "../config";
 function Login() {
+  const isDemo = useDemoMode();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -58,11 +62,7 @@ function Login() {
             <span>Internal Medicine Clinic</span>
           </div>
           <div className="login-brand-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/>
-              <path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/>
-              <circle cx="20" cy="10" r="2"/>
-            </svg>
+            <Icon name="stethoscope" size={22} strokeWidth={1.6} />
           </div>
         </div>
 
@@ -88,8 +88,11 @@ function Login() {
       </div>
 
       <div className="login-right">
+        {isDemo && <DemoBanner />}
+
         <div className="login-header">
-          <h2>👋 مرحباً بعودتك</h2>
+          <span className="login-kicker">تسجيل الدخول</span>
+          <h2>مرحباً بعودتك</h2>
           <p>سجّل دخولك للوصول إلى لوحة التحكم الخاصة بك.</p>
         </div>
 
@@ -97,27 +100,36 @@ function Login() {
           <label className="form-label">نوع المستخدم</label>
           <div className="role-selector">
             <button
+              type="button"
               className={`role-btn ${role === "doctor" ? "active" : ""}`}
               onClick={() => setRole("doctor")}
+              aria-pressed={role === "doctor"}
             >
-              <span className="role-icon">👨‍⚕️</span>
+              <span className="role-icon">
+                <Icon name="stethoscope" size={16} />
+              </span>
               طبيب
             </button>
             <button
+              type="button"
               className={`role-btn ${role === "receptionist" ? "active" : ""}`}
               onClick={() => setRole("receptionist")}
+              aria-pressed={role === "receptionist"}
             >
-              <span className="role-icon">🧑‍💼</span>
+              <span className="role-icon">
+                <Icon name="briefcase" size={16} />
+              </span>
               موظف استقبال
             </button>
           </div>
         </div>
 
         <div className="form-group">
-          <label className="form-label">البريد الإلكتروني</label>
+          <label htmlFor="login-email" className="form-label">البريد الإلكتروني</label>
           <input
+            id="login-email"
             type="email"
-            className="form-input"
+            className="form-input form-input--ltr"
             placeholder="name@clinic.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -125,10 +137,11 @@ function Login() {
         </div>
 
         <div className="form-group">
-          <label className="form-label">كلمة المرور</label>
+          <label htmlFor="login-password" className="form-label">كلمة المرور</label>
           <input
+            id="login-password"
             type="password"
-            className="form-input"
+            className="form-input form-input--ltr"
             placeholder="••••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

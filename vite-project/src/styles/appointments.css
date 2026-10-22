@@ -1,287 +1,720 @@
 /* ===========================
-   appointments.css
+   Booking page — warm green / ivory
    =========================== */
 
-/* ───── Header ───── */
-.appt-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 24px;
-  direction: rtl;
-}
-
-.appt-header-right {
+.booking-shell {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--space-8);
 }
 
-.appt-subtitle {
-  font-size: 12px;
-  color: #6b7280;
-}
-
-.appt-title {
-  font-size: 28px;
-  font-weight: 700;
-  color: #1a1a2e;
-  margin: 0;
-}
-
-.appt-desc {
-  font-size: 13px;
-  color: #6b7280;
-  margin: 0;
-}
-
-/* ───── Stat Cards ───── */
-.appt-stats {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-.appt-stat-card {
-  flex: 1;
-  background: #fff;
-  border: 1px solid #e5e7eb;
-  border-radius: 14px;
-  padding: 20px 22px;
-  display: flex;
-  align-items: center;
-  flex-direction: row;   /* أيقونة أقصى اليمين، ثم الأرقام */
-  gap: 16px;
-}
-
-.appt-stat-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  flex-shrink: 0;
-}
-.appt-stat-icon.yellow { background: #fef9c3; }
-.appt-stat-icon.green  { background: #dcfce7; }
-.appt-stat-icon.blue   { background: #dbeafe; }
-
-.appt-stat-info {
-  text-align: right;
-  flex: 1;
-}
-.appt-stat-info h3 {
-  font-size: 30px;
-  font-weight: 700;
-  color: #1a1a2e;
-  line-height: 1;
-  margin: 0 0 4px;
-}
-.appt-stat-info span {
-  font-size: 12px;
-  color: #6b7280;
-}
-
-/* ───── Filters Bar ───── */
-.appt-filters-bar {
-  display: flex;
-  align-items: center;
-  background: #fff;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 12px 16px;
-  margin-bottom: 20px;
-  gap: 12px;
-  direction: rtl;
-}
-
-/* الـ selects — في المنتصف */
-.appt-filters-center {
-  display: flex;
-  align-items: flex-end;
-  gap: 10px;
-  flex: 1;
-  justify-content: center;
-  flex-wrap: wrap;
-  direction: rtl;
-}
-
-.appt-filter-group {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  align-items: flex-start;
-}
-.appt-filter-group label {
-  font-size: 11px;
-  color: #9ca3af;
-}
-.appt-filter-group select {
-  padding: 7px 12px;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  font-family: "Cairo", sans-serif;
-  font-size: 13px;
-  color: #1a1a2e;
-  background: #fff;
-  outline: none;
-  min-width: 110px;
-  direction: rtl;
-}
-
-.appt-filter-btn-blue {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 8px;
-  background: #2563eb;
-  font-family: "Cairo", sans-serif;
-  font-size: 13px;
-  color: #fff;
-  cursor: pointer;
-  font-weight: 600;
-  align-self: flex-end;
-  white-space: nowrap;
-  flex-shrink: 0;
-  transition: background 0.15s;
-}
-.appt-filter-btn-blue:hover { background: #1d4ed8; }
-
-/* ───── Days Grid ───── */
-.appt-days {
+/* ───── Intro ───── */
+.booking-hero {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+  align-items: stretch;
+  gap: var(--space-16);
+  padding: var(--space-4) 0 var(--space-2);
 }
 
-/* ───── Day Card ───── */
-.appt-day-card {
-  background: #fff;
-  border: 1px solid #e5e7eb;
-  border-radius: 14px;
+.booking-hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 620px;
+  padding-block: var(--space-6);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.booking-headline {
+  font-size: clamp(2.5rem, 4.4vw, 4rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: var(--text);
+  margin: var(--space-4) 0 var(--space-6);
+}
+
+.booking-headline span {
+  display: block;
+  color: var(--primary);
+}
+
+.booking-intro {
+  font-size: 16px;
+  line-height: 1.9;
+  color: var(--muted);
+  max-width: 440px;
+}
+
+/* ───── Doctor card ───── */
+.doctor-card {
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-end;
+}
+
+.doctor-card-inner {
+  width: 100%;
+  max-width: 360px;
+  min-height: 376px;
+  background: var(--primary-soft);
+  border: 1px solid #D5E0CC;
+  border-radius: 170px 170px 18px 18px;
+  padding: 46px 28px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
   overflow: hidden;
 }
 
-.appt-day-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 14px 16px;
-  border-bottom: 1px solid #e5e7eb;
-  background: #f9fafb;
-  direction: rtl;
+.doctor-card-inner::after {
+  content: "";
+  position: absolute;
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  border: 1px solid rgba(32, 91, 75, 0.09);
+  bottom: -105px;
+  left: -55px;
+  pointer-events: none;
 }
 
-.appt-day-header-right {
+.doctor-card-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--primary-mid);
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-4);
+}
+
+.doctor-card-avatar {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid #D5E0CC;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-4);
+  position: relative;
+  z-index: 1;
+}
+
+.doctor-card-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+}
+
+.doctor-card-specialty {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 2px;
+  position: relative;
+  z-index: 1;
+}
+
+.doctor-card-divider {
+  width: 44px;
+  height: 1px;
+  background: #C9D6C0;
+  margin: var(--space-4) 0 var(--space-3);
+}
+
+.doctor-card-hours {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.8;
+  color: var(--primary-dark);
+  position: relative;
+  z-index: 1;
+}
+
+.doctor-card-hours svg {
+  color: var(--primary-mid);
+}
+
+/* ───── Booking panel ───── */
+.booking-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: var(--space-8);
+  box-shadow: var(--shadow-soft);
+}
+
+.booking-panel-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-6);
+  margin-bottom: var(--space-6);
+}
+
+.booking-kicker {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+
+.booking-panel-heading h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.booking-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(118px, 1fr));
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.booking-stat {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 13px;
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.booking-stat-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-mist);
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.booking-stat--warning .booking-stat-icon {
+  background: var(--warning-bg);
+  color: var(--warning-text);
+}
+
+.booking-stat--success .booking-stat-icon {
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+.booking-stat-info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
   text-align: right;
 }
-.appt-day-name {
-  display: block;
-  font-size: 14px;
+
+.booking-stat-info strong {
+  font-size: 18px;
   font-weight: 700;
-  color: #1a1a2e;
-}
-.appt-day-date {
-  display: block;
-  font-size: 11px;
-  color: #9ca3af;
-  margin-top: 2px;
+  color: var(--text);
 }
 
-.appt-day-header-left {
+.booking-stat-info span {
+  font-size: 10.5px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* ───── Filters ───── */
+.booking-filters {
   display: flex;
+  align-items: flex-end;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: var(--space-6);
+}
+
+.btn-add-day {
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
-}
-.appt-day-count {
-  font-size: 12px;
-  font-weight: 600;
-  color: #6b7280;
-}
-.appt-day-icon { font-size: 16px; }
-
-/* ───── Slot ───── */
-.appt-slot {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 11px 16px;
-  border-bottom: 1px solid #f3f4f6;
-  direction: rtl;
-}
-.appt-slot:last-child { border-bottom: none; }
-
-.appt-slot-time {
-  font-size: 13px;
-  font-weight: 600;
-  color: #374151;
-}
-
-.appt-slot-btn {
-  padding: 5px 16px;
-  border: none;
-  border-radius: 20px;
-  font-family: "Cairo", sans-serif;
+  min-height: 44px;
+  padding: 0 17px;
+  border: 1px solid var(--primary);
+  border-radius: 10px;
+  background: var(--primary);
+  color: #F8FBF5;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.18s ease, border-color 0.18s ease;
 }
-.appt-slot-btn.available {
-  background: #2563eb;
-  color: #fff;
+
+.btn-add-day:hover {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
 }
-.appt-slot-btn.available:hover { background: #1d4ed8; }
-.appt-slot-btn.booked {
-  background: #e5e7eb;
-  color: #9ca3af;
+
+.booking-filters-center {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: var(--space-3);
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+.booking-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: flex-start;
+}
+
+.booking-filter-group label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+  padding-inline-start: 2px;
+}
+
+.booking-filter-group select {
+  height: 44px;
+  min-width: 116px;
+  padding: 0 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 13px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.booking-filter-group select:hover {
+  border-color: var(--primary-mid);
+}
+
+.booking-filter-group select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(32, 91, 75, 0.1);
+}
+
+/* ───── Day selection ───── */
+.day-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.day-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  min-height: 88px;
+  padding: 14px 16px;
+  text-align: right;
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.day-tab:hover {
+  border-color: var(--primary-mid);
+  background: var(--primary-mist);
+}
+
+.day-tab-weekday {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.day-tab-date {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.day-tab-count {
+  margin-top: auto;
+  padding-top: 6px;
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--muted-light);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.day-tab.active {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.day-tab.active .day-tab-weekday {
+  color: #F8FBF5;
+}
+
+.day-tab.active .day-tab-date {
+  color: rgba(248, 251, 245, 0.8);
+}
+
+.day-tab.active .day-tab-count {
+  color: rgba(248, 251, 245, 0.72);
+}
+
+/* ───── Times ───── */
+.times-panel {
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: var(--space-6);
+}
+
+.times-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.times-head h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.times-subtitle {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 1px;
+}
+
+.times-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 5px 11px;
+  background: var(--primary-mist);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--primary);
+  font-size: 11.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.times-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(142px, 1fr));
+  gap: 10px;
+}
+
+.time-slot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 54px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+}
+
+.time-slot-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--text);
+  direction: rtl;
+}
+
+.time-slot-time svg {
+  color: var(--muted-light);
+}
+
+.time-slot-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.time-slot.available:hover {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  box-shadow: 0 4px 14px rgba(32, 91, 75, 0.07);
+}
+
+.time-slot.available:hover .time-slot-time svg {
+  color: var(--primary);
+}
+
+.time-slot.booked {
+  background: #F3F1E9;
+  border-color: #E5E2D8;
+  color: var(--muted-light);
   cursor: not-allowed;
 }
 
+.time-slot.booked .time-slot-time {
+  color: var(--muted-light);
+}
+
+.time-slot.booked .time-slot-label {
+  color: var(--muted-light);
+}
+
+.time-slot:disabled {
+  opacity: 1;
+}
+
+.booking-footnote {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.booking-footnote svg {
+  color: var(--muted-light);
+}
+
 /* ===========================
-   Appointments — Mobile Media Query
+   Booking — Responsive
    =========================== */
-@media (max-width: 768px) {
-  /* الـ main padding */
-  .main {
-    padding: 16px;
+@media (max-width: 1080px) {
+  .booking-hero {
+    gap: var(--space-8);
   }
 
-  /* Header */
-  .appt-title { font-size: 22px; }
-
-  /* Stats — عمود واحد */
-  .appt-stats {
-    flex-direction: column;
-    gap: 10px;
+  .booking-headline {
+    font-size: clamp(2.3rem, 4.9vw, 3.3rem);
   }
 
-  /* Filters — عمود واحد */
-  .appt-filters-bar {
+  .booking-panel {
+    padding: var(--space-6);
+  }
+
+  .booking-panel-head {
     flex-direction: column;
     align-items: stretch;
-    gap: 10px;
   }
 
-  .appt-filters-center {
-    justify-content: flex-start;
+  .booking-stats {
+    width: 100%;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 860px) {
+  .booking-hero {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    padding-top: 0;
+  }
+
+  .booking-hero-copy {
+    padding-block: 0;
+    max-width: none;
+  }
+
+  .booking-headline {
+    font-size: clamp(2.25rem, 7vw, 3rem);
+    margin-bottom: var(--space-4);
+  }
+
+  .booking-intro {
+    max-width: 560px;
+  }
+
+  .doctor-card {
+    justify-content: center;
+  }
+
+  .doctor-card-inner {
+    max-width: 440px;
+    min-height: 0;
+    padding: 36px 24px 26px;
+    border-radius: 140px 140px 16px 16px;
+  }
+}
+
+@media (max-width: 700px) {
+  .booking-shell {
+    gap: var(--space-6);
+  }
+
+  .booking-panel {
+    padding: var(--space-4);
+    border-radius: 16px;
+  }
+
+  .booking-stats {
+    gap: 6px;
+  }
+
+  .booking-stat {
+    padding: 9px 10px;
+    gap: 7px;
+  }
+
+  .booking-stat-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+  }
+
+  .booking-stat-info strong {
+    font-size: 16px;
+  }
+
+  .booking-stat-info span {
+    font-size: 9.5px;
+    white-space: normal;
+  }
+
+  .booking-filters {
+    flex-direction: column;
+    align-items: stretch;
+    padding: var(--space-3);
+  }
+
+  .btn-add-day {
+    width: 100%;
+  }
+
+  .booking-filters-center {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    width: 100%;
+  }
+
+  .booking-filter-group {
+    min-width: 0;
+  }
+
+  .booking-filter-group select {
+    width: 100%;
+    min-width: 0;
+    padding: 0 8px;
+    font-size: 12px;
+  }
+
+  .day-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
   }
 
-  .appt-filter-group select {
-    min-width: unset;
-    width: 100%;
+  .day-tab {
+    min-height: 82px;
+    padding: 12px 14px;
   }
 
-  .appt-filter-btn-blue {
-    width: 100%;
-    text-align: center;
+  .times-panel {
+    padding: var(--space-4);
   }
 
-  /* Days Grid — عمود واحد بدل 4 */
-  .appt-days {
+  .times-head {
+    align-items: flex-start;
+  }
+
+  .times-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .time-slot {
+    min-height: 52px;
+    padding: 9px 12px;
+  }
+}
+
+@media (max-width: 430px) {
+  .booking-headline {
+    font-size: 2.1rem;
+  }
+
+  .booking-intro {
+    font-size: 14.5px;
+  }
+
+  .doctor-card-inner {
+    border-radius: 120px 120px 16px 16px;
+    padding: 32px 20px 24px;
+  }
+
+  .booking-panel {
+    padding: 14px;
+  }
+
+  .booking-stats {
     grid-template-columns: 1fr;
-    gap: 12px;
+  }
+
+  .booking-stat {
+    justify-content: flex-start;
+  }
+
+  .booking-stat-info span {
+    white-space: nowrap;
+  }
+
+  .booking-filters-center {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-filter-group label {
+    font-size: 10.5px;
+  }
+
+  .times-grid {
+    grid-template-columns: 1fr;
   }
 }
